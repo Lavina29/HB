@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>З днем народження</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: Arial, sans-serif;
+        }
+
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            width: 300px;
+        }
+
+        .login-container h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #764ba2;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            opacity: 0.9;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        #content {
+            display: none;
+        }
+
+        .greeting {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .rainbow-text {
+            background: linear-gradient(90deg, 
+                red, 
+                orange, 
+                yellow, 
+                green, 
+                blue, 
+                indigo, 
+                violet);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbow-shift 3s linear infinite;
+        }
+
+        @keyframes rainbow-shift {
+            0% {
+                filter: hue-rotate(0deg);
+            }
+            100% {
+                filter: hue-rotate(360deg);
+            }
+        }
+
+        .video-container {
+            margin-top: 40px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        video {
+            width: 600px;
+            height: 400px;
+            border: none;
+        }
+
+        .mute-btn {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .mute-btn:hover {
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .greeting {
+                font-size: 32px;
+            }
+            video {
+                width: 100%;
+                max-width: 500px;
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="login" class="login-container">
+        <h1>Вхід</h1>
+        <form onsubmit="checkLogin(event)">
+            <div class="form-group">
+                <label for="username">Логін:</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль:</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit" class="login-btn">Увійти</button>
+            <div class="error" id="error"></div>
+        </form>
+    </div>
+
+    <div id="content">
+        <div class="greeting">
+            <span class="rainbow-text">З днем народження, Маша!</span>
+        </div>
+
+        <div class="video-container">
+            <video id="videoPlayer" autoplay muted loop>
+                <source src="Cockroach.mp4" type="video/mp4">
+                Ваш браузер не підтримує відеопрогравання.
+            </video>
+            <button class="mute-btn" onclick="toggleMute()">🔊 Увімкнути звук</button>
+        </div>
+    </div>
+
+    <script>
+        function checkLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('error');
+
+            if (username === 'Артемчик' && password === 'K#9mPq$2vL@xN5wR') {
+                document.getElementById('login').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+            } else {
+                errorDiv.textContent = 'Невірний логін або пароль';
+            }
+        }
+
+        function toggleMute() {
+            const video = document.getElementById('videoPlayer');
+            const btn = document.querySelector('.mute-btn');
+            
+            if (video.muted) {
+                video.muted = false;
+                btn.textContent = '🔇 Вимкнути звук';
+            } else {
+                video.muted = true;
+                btn.textContent = '🔊 Увімкнути звук';
+            }
+        }
+    </script>
+</body>
+</html>
